@@ -287,7 +287,6 @@
     }
   }
 
-  // ── Analyze PDF ──────────────────────────────────────────────────────────
   async function analyzePDF() {
     if (!selectedFile) return;
     const language = document.querySelector('input[name="language"]:checked').value;
@@ -303,7 +302,7 @@
 
     try {
       const response = await fetch(
-        `http://localhost:8000/analyze?language=${encodeURIComponent(language)}`,
+        `/analyze?language=${encodeURIComponent(language)}`,
         { method: 'POST', body: formData }
       );
       if (!response.ok) throw new Error('Server error');
@@ -316,13 +315,12 @@
       document.getElementById('results').innerHTML = `
         <div style="background:#ffebee;border-radius:10px;padding:20px;text-align:center;color:#c62828;">
           <p style="font-size:16px;font-weight:bold;">❌ Could not connect to server</p>
-          <p style="font-size:13px;margin-top:8px;">Make sure <code>api.py</code> is running. Then refresh and try again.</p>
+          <p style="font-size:13px;margin-top:8px;">Please refresh the page and try again.</p>
         </div>`;
       document.getElementById('reset-btn').style.display = 'block';
     }
   }
 
-  // ── Display results ──────────────────────────────────────────────────────
   function displayResults(clauses, language) {
     currentClauses = clauses;
     const high   = clauses.filter(c => c.risk === 'high').length;
@@ -341,7 +339,6 @@
       summaryBox.innerHTML = `✅ All ${low} clauses look standard. No major red flags found.`;
     }
 
-    // Auto-read summary using backend TTS
     setTimeout(() => speakTextBackend(summaryBox.innerText, language), 600);
 
     const container = document.getElementById('results');
@@ -374,26 +371,19 @@
     window.scrollTo({ top: summaryBox.offsetTop - 20, behavior: 'smooth' });
   }
 
-  // ── Backend TTS — works for ALL languages ────────────────────────────────
   async function speakTextBackend(text, language, btn) {
-    // Stop any currently playing audio
     if (currentAudio) { currentAudio.pause(); currentAudio = null; }
-
     if (btn) { btn.textContent = '⏳ Loading...'; btn.classList.add('speaking'); }
-
     try {
-      const response = await fetch('http://localhost:8000/speak', {
+      const response = await fetch('/speak', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: text, language: language })
       });
-
       if (!response.ok) throw new Error('TTS failed');
-
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
       currentAudio = new Audio(url);
-
       currentAudio.onended = () => {
         if (btn) {
           const lang = document.querySelector('input[name="language"]:checked').value;
@@ -402,16 +392,13 @@
         }
         currentAudio = null;
       };
-
       currentAudio.play();
-
     } catch (err) {
       console.error('TTS error:', err);
       if (btn) { btn.textContent = '❌ Audio failed'; btn.classList.remove('speaking'); }
     }
   }
 
-  // ── Speak translation of a clause ───────────────────────────────────────
   function speakTranslation(index, btn) {
     const clause = currentClauses[index];
     const language = document.querySelector('input[name="language"]:checked').value;
@@ -419,14 +406,12 @@
     speakTextBackend(clause.translation, language, btn);
   }
 
-  // ── Speak English version of a clause ───────────────────────────────────
   function speakEnglish(index, btn) {
     const clause = currentClauses[index];
     btn.textContent = '⏳ Loading...';
     speakTextBackend(clause.simple_english, 'Simple English', btn);
   }
 
-  // ── Speak Q&A answer ─────────────────────────────────────────────────────
   function speakAnswer() {
     if (currentAnswer) {
       const language = document.querySelector('input[name="language"]:checked').value;
@@ -434,7 +419,6 @@
     }
   }
 
-  // ── Voice input (Speech to Text — Chrome only) ───────────────────────────
   let recognition = null;
 
   function startVoiceInput() {
@@ -443,21 +427,16 @@
       document.getElementById('mic-status').textContent = '❌ Voice input needs Chrome browser.';
       return;
     }
-
     const selectedLang = document.querySelector('input[name="language"]:checked').value;
     const micBtn = document.getElementById('mic-btn');
-
     if (recognition) { recognition.stop(); return; }
-
     recognition = new SpeechRecognition();
     recognition.lang = langCodeMap[selectedLang] || 'hi-IN';
     recognition.interimResults = true;
     recognition.continuous = false;
-
     micBtn.classList.add('listening');
     micBtn.textContent = '⏹';
     document.getElementById('mic-status').textContent = '🎤 Listening... speak your question now';
-
     recognition.onresult = (event) => {
       let transcript = '';
       for (let i = event.resultIndex; i < event.results.length; i++) {
@@ -465,7 +444,6 @@
       }
       document.getElementById('question-input').value = transcript;
     };
-
     recognition.onend = () => {
       micBtn.classList.remove('listening');
       micBtn.textContent = '🎤';
@@ -478,32 +456,26 @@
         document.getElementById('mic-status').textContent = '❌ Did not catch that. Try again.';
       }
     };
-
     recognition.onerror = (event) => {
       micBtn.classList.remove('listening');
       micBtn.textContent = '🎤';
       recognition = null;
       document.getElementById('mic-status').textContent = '❌ Error: ' + event.error + '. Try again.';
     };
-
     recognition.start();
   }
 
-  // ── Ask question to AI ────────────────────────────────────────────────────
   async function askQuestion() {
     const question = document.getElementById('question-input').value.trim();
     if (!question) return;
-
     const language = document.querySelector('input[name="language"]:checked').value;
     const answerBox = document.getElementById('qa-answer');
     const answerText = document.getElementById('qa-answer-text');
-
     answerBox.style.display = 'block';
     answerText.textContent = '⏳ Thinking...';
     document.getElementById('mic-status').textContent = '';
-
     try {
-      const response = await fetch('http://localhost:8000/ask', {
+      const response = await fetch('/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question, language, context: documentContext })
@@ -511,16 +483,12 @@
       const data = await response.json();
       currentAnswer = data.answer;
       answerText.textContent = currentAnswer;
-
-      // Auto speak answer via backend TTS
       setTimeout(() => speakTextBackend(currentAnswer, language, null), 300);
-
     } catch (err) {
-      answerText.textContent = '❌ Could not get answer. Make sure api.py is running.';
+      answerText.textContent = '❌ Could not get answer. Please refresh and try again.';
     }
   }
 
-  // ── Reset ─────────────────────────────────────────────────────────────────
   function resetApp() {
     if (currentAudio) { currentAudio.pause(); currentAudio = null; }
     selectedFile = null; currentClauses = []; documentContext = ''; currentAnswer = '';
