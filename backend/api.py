@@ -143,5 +143,8 @@ async def speak_text(req: SpeakRequest):
         media_type="audio/mpeg",
         filename=filename
     )
+
+def ping():
+    return {"status": "awake"}
 if __name__ == "__main__":
     uvicorn.run("api:app", host="0.0.0.0", port=8000, reload=True)
