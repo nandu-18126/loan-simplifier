@@ -1,4 +1,4 @@
-# 🏦 Loan Document Simplifier
+# 🏦 Loan Document Simplifier **[🚀 Live Demo](https://loan-simplifier.onrender.com)**
 
 A simple project built to help people actually understand loan documents before signing them.
 
@@ -182,5 +182,5 @@ Users should still consult professionals before making financial decisions.
 I built this with a simple idea:
 
 > People should understand what they are signing — especially when it involves their money or property.
-
+**[🚀 Live Demo](https://loan-simplifier.onrender.com)**
 
