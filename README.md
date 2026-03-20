@@ -1,10 +1,17 @@
 # 🏦 Loan Document Simplifier **[🚀 Live Demo](https://loan-simplifier.onrender.com)**
+> ⚠️ **Important:** Open in Google Chrome for full functionality. 
 
-A simple project built to help people actually understand loan documents before signing them.
-
+An AI-powered platform that reads loan documents, detects dangerous clauses, 
+and explains them in 7 Indian languages — with full voice support.
+Built for the 190 million Indians who sign documents they cannot understand.
 ---
 
 ## 💭 Why we Built This
+
+> 📊 **190 million** Indians have no credit/loan literacy tools  
+> 📊 **55%** of rural Indians want to understand loans but can't  
+> 📊 **86%** sign documents without fully understanding them  
+> *(Sources: World Bank 2023, NABARD Survey, RBI Annual Report)*
 
 In many parts of India, especially rural areas, people are given long loan documents in English filled with legal terms. Most of them don’t fully understand what they’re signing.
 
@@ -20,7 +27,7 @@ Which basically means:
 
 That’s a serious thing, and many people don’t realize it.
 
-So I thought — what if we could **simplify these documents using AI**?
+So we thought — what if we could **simplify these documents using AI**?
 
 ---
 
@@ -84,7 +91,7 @@ We tried to keep things simple:
 * **PDF Reading**: PyMuPDF
 * **Text-to-Speech**: gTTS
 * **Speech Input**: Web Speech API
-* **Deployment**: Railway
+* **Deployment**: Render
 
 ---
 
@@ -125,7 +132,13 @@ http://localhost:8000
 ```
 
 ---
-### 6.**[🚀 Live Demo](https://loan-simplifier.onrender.com)**
+### 6.Screenshot:
+<img width="1920" height="1128" alt="Screenshot 2026-03-20 174917" src="https://github.com/user-attachments/assets/6ce7e51a-4042-4f44-b3e4-5ec4046e0fed" />
+<img width="1920" height="1128" alt="Screenshot 2026-03-20 174935" src="https://github.com/user-attachments/assets/006181e2-8c42-472e-942e-400250b920c4" />
+<img width="1920" height="1128" alt="Screenshot 2026-03-20 174952" src="https://github.com/user-attachments/assets/59cf3d1c-2fa8-493f-8612-52ef73b45566" />
+<img width="1920" height="1128" alt="Screenshot 2026-03-20 175009" src="https://github.com/user-attachments/assets/6ceca23d-8413-4056-b1f8-8dbb836415b3" />
+<img width="1920" height="1128" alt="Screenshot 2026-03-20 175047" src="https://github.com/user-attachments/assets/7a72ad2b-f581-42d7-8a22-4b95c2e3d669" />
+
 
 ## 📁 Project Structure
 
@@ -177,10 +190,25 @@ It is **not a replacement for legal advice**.
 Users should still consult professionals before making financial decisions.
 
 ---
+## 🏆 Hackathon Submission
+
+**Event:** HACK HUSTLE
+CODE KNIGHT  
+**Track:** FinTech / Financial Inclusion  
+**Team:**  Team Name  
+**Members:** Nandini, Lakshana  
+**College:** Panimalar Engineering college  
+
+### 📚 References
+- NABARD Financial Inclusion Survey 2023
+- RBI Annual Report 2024
+- World Bank Global Findex Database 2023
+- SARFAESI Act 2002 — Government of India
+- Bhashini Initiative — MeitY
 
 ## 🏁 Final Thought
 
-I built this with a simple idea:
+We built this with a simple idea:
 
 > People should understand what they are signing — especially when it involves their money or property.
 
