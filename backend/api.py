@@ -144,6 +144,7 @@ async def speak_text(req: SpeakRequest):
         filename=filename
     )
 
+@app.get("/ping")
 def ping():
     return {"status": "awake"}
 if __name__ == "__main__":
