@@ -195,7 +195,7 @@ Users should still consult professionals before making financial decisions.
 **Event:** HACK HUSTLE
 CODE KNIGHT  
 **Track:** FinTech / Financial Inclusion  
-**Team:**  Team Name  
+**Team:**  Zenith  
 **Members:** Nandini, Lakshana  
 **College:** Panimalar Engineering college  
 
