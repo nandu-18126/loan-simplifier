@@ -4,7 +4,7 @@ A simple project built to help people actually understand loan documents before 
 
 ---
 
-## 💭 Why I Built This
+## 💭 Why we Built This
 
 In many parts of India, especially rural areas, people are given long loan documents in English filled with legal terms. Most of them don’t fully understand what they’re signing.
 
@@ -76,7 +76,7 @@ Supports multiple Indian languages like:
 
 ## 🛠 Tech Stack
 
-I tried to keep things simple:
+We tried to keep things simple:
 
 * **Frontend**: HTML, CSS, JavaScript
 * **Backend**: Python + FastAPI
@@ -125,6 +125,7 @@ http://localhost:8000
 ```
 
 ---
+### 6.**[🚀 Live Demo](https://loan-simplifier.onrender.com)**
 
 ## 📁 Project Structure
 
@@ -182,5 +183,5 @@ Users should still consult professionals before making financial decisions.
 I built this with a simple idea:
 
 > People should understand what they are signing — especially when it involves their money or property.
-**[🚀 Live Demo](https://loan-simplifier.onrender.com)**
+
 
